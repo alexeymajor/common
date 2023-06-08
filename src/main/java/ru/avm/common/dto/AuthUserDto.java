@@ -13,6 +13,7 @@ public class AuthUserDto {
     Long id;
     String sid;
     String name;
+    String tag;
     String phone;
     String email;
     Collection<AuthorityDto> authorities;
