@@ -11,6 +11,7 @@ public class CompanyDto {
     Long id;
     Long parentId;
     String name;
+    String code;
     String inn;
     String kpp;
 }
