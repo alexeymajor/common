@@ -14,5 +14,5 @@ public class CompanyDto {
     String code;
     String innKpp;
     String legal;
-    String project;
+    String projects;
 }
