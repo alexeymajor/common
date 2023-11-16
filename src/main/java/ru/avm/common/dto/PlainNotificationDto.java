@@ -11,6 +11,8 @@ import lombok.extern.jackson.Jacksonized;
 public class PlainNotificationDto {
     @With
     String sid;
+    @With
+    String phone;
     String from;
     String title;
     String text;
