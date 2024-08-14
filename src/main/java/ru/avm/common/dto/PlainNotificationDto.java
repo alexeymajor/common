@@ -12,6 +12,8 @@ public class PlainNotificationDto {
     @With
     String sid;
     @With
+    String group;
+    @With
     String phone;
     String from;
     String title;
