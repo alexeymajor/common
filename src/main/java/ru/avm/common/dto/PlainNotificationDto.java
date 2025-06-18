@@ -1,9 +1,12 @@
 package ru.avm.common.dto;
 
 import lombok.Builder;
+import lombok.Singular;
 import lombok.Value;
 import lombok.With;
 import lombok.extern.jackson.Jacksonized;
+
+import java.util.Map;
 
 @Value
 @Builder
@@ -18,6 +21,9 @@ public class PlainNotificationDto {
     String from;
     String title;
     String text;
+    String template;
+    @Singular("param")
+    Map<String, Object> params;
     @Builder.Default
     Boolean noMail = false;
     @Builder.Default
