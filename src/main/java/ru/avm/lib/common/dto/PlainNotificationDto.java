@@ -1,4 +1,4 @@
-package ru.avm.common.dto;
+package ru.avm.lib.common.dto;
 
 import lombok.Builder;
 import lombok.Singular;

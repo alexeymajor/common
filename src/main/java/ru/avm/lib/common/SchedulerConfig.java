@@ -1,6 +1,7 @@
-package ru.avm.common;
+package ru.avm.lib.common;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +21,7 @@ import java.util.concurrent.Executor;
 public class SchedulerConfig implements SchedulingConfigurer, AsyncConfigurer {
     @Bean
     public ThreadPoolTaskScheduler taskScheduler() {
-        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        val scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(20);
         scheduler.setThreadNamePrefix("task-");
         scheduler.setAwaitTerminationSeconds(60);
