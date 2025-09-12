@@ -2,9 +2,11 @@ package ru.avm.lib.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.jackson.Jacksonized;
 import org.springframework.security.core.GrantedAuthority;
 
+@RequiredArgsConstructor
 @Builder
 @Jacksonized
 public class AuthorityDto implements GrantedAuthority {

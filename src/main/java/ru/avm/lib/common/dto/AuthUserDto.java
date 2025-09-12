@@ -1,8 +1,8 @@
 package ru.avm.lib.common.dto;
 
 import lombok.Builder;
+import lombok.Singular;
 import lombok.extern.jackson.Jacksonized;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
@@ -15,6 +15,7 @@ public record AuthUserDto(
         String tag,
         String phone,
         String email,
-        Collection<? extends GrantedAuthority> authorities
+        @Singular("authority")
+        Collection<String> authorities
 ) {
 }

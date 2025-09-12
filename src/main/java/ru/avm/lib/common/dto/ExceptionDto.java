@@ -6,7 +6,9 @@ import lombok.extern.jackson.Jacksonized;
 @Builder
 @Jacksonized
 public record ExceptionDto(
+        String source,
         String exception,
-        String message
+        String message,
+        String uri
 ) {
 }
