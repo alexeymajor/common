@@ -6,7 +6,7 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.util.Collection;
 
-@Builder
+@Builder(toBuilder = true)
 @Jacksonized
 public record AuthUserDto(
         Long id,
