@@ -3,7 +3,9 @@ package ru.avm.lib.common;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,48 +31,60 @@ public class ExceptionsAdviceConfig {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDto handleException(Exception exception) {
-        log.error("unexpected exception", exception);
-        return exceptionMapper.toDto(exception);
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
     @ExceptionHandler(UndeclaredThrowableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ExceptionDto sneakyException(UndeclaredThrowableException ex) {
-        log.error("sneaky exception", ex);
-        return exceptionMapper.toDto(ex.getCause());
+    public ExceptionDto sneakyException(UndeclaredThrowableException exception) {
+        val ex = exceptionMapper.toDto(exception.getCause());
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
     @ExceptionHandler(FeignException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public ResponseEntity<String> feignException(FeignException ex) {
-        log.error("proxy exception", ex);
-        return new ResponseEntity<>(ex.contentUTF8(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> feignException(FeignException exception) {
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        val statusCode = HttpStatusCode.valueOf(exception.status());
+        return new ResponseEntity<>(exception.contentUTF8(), statusCode);
     }
 
     @ExceptionHandler(NotImplementedException.class)
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     public ExceptionDto handleNotImplemented(NotImplementedException exception) {
-        return exceptionMapper.toDto(exception);
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
     @ExceptionHandler(NotAuthorizedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ExceptionDto handleNotAuthorizedException(NotAuthorizedException exception) {
-        return exceptionMapper.toDto(exception);
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
     @ExceptionHandler(ApiException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionDto handleApiException(ApiException exception) {
-        return exceptionMapper.toDto(exception);
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionDto handleNotFoundException(NotFoundException exception) {
-        return exceptionMapper.toDto(exception);
+        val ex = exceptionMapper.toDto(exception);
+        log.error(ex.toString(), exception);
+        return ex;
     }
 
 }

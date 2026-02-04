@@ -1,5 +1,6 @@
 package ru.avm.lib.common;
 
+import feign.FeignException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,11 +21,16 @@ public class ExceptionMapperConfig {
 
     @Bean
     public ExceptionMapper exceptionMapper(@Value("${spring.application.name:unknown}") String applicationName) {
-        return ex -> ExceptionDto.builder()
-                .message(ex.getMessage())
-                .source(applicationName)
-                .exception(ex.getClass().getSimpleName())
-                .uri(getCurrentRequest().getRequestURI())
-                .build();
+        return ex -> {
+            val request = getCurrentRequest();
+            val status = (ex instanceof FeignException) ? ((FeignException) ex).status() : null;
+            return ExceptionDto.builder()
+                    .message(ex.getMessage())
+                    .source(applicationName)
+                    .exception(ex.getClass().getSimpleName())
+                    .uri(request.getRequestURI())
+                    .status(status)
+                    .build();
+        };
     }
 }
